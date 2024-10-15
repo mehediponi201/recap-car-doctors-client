@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import swal from 'sweetalert'
 
 const PrivateRoute = ({children}) => {
 
     const {user,loading} = useContext(AuthContext);
+    const location = useLocation();
 
     if(loading)
     {
@@ -15,7 +16,7 @@ const PrivateRoute = ({children}) => {
     {
         return children;
     }
-    return <Navigate to="/login">
+    return <Navigate state={location.pathname} to="/login">
         {
             swal("Please,login to access your booking collection!!!")
         }
